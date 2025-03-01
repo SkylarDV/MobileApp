@@ -1,15 +1,14 @@
 import React from "react";
 import {View, Text, StyleSheet, Image, Button, TouchableOpacity} from "react-native";
 
-const ProductCard = ({ navigation }) => {
+const ProductCard = ({ title, desc, image, onPress, navigation }) => {
   return (
     <View style={styles.card}>
-        <Image source={require("../images/print1.png")} style={styles.image}/>
-        <Text style={styles.title}>Singing Girl - Concert</Text>
-        <Text style={styles.desc}>Available Sizes:</Text>
-        <Text style={styles.desc}>15 x 15 - 20 x 20 - 30 x 30 - 40 x 40</Text>
+        <Image source={image} style={styles.image}/>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.desc}>{desc}</Text>
         <TouchableOpacity style={styles.button} 
-        onPress={() => navigation.navigate('Details')}>
+        onPress={onPress}>
             <Text style={styles.text}>More Information</Text>
         </TouchableOpacity>    
     </View>
