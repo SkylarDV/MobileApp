@@ -21,15 +21,15 @@ const HomeScreen = ( {navigation} ) => {
     .then((data) => {
         // Group SKUs under the same product
         const formattedProducts = data.items.map((item) => ({
-            id: item.product.id,
-            title: item.product.fieldData.name,
-            desc: item.product.fieldData.description,
-            sizes: item.product.fieldData.sizelist,
-            image: item.product.fieldData.printimage.url,
-            tPrice: item.product.variants[0].price,
-            sPrice: item.product.variants[1].price, 
-            mPrice: item.product.variants[2].price,
-            lPrice: item.product.variants[3].price
+          id: item.product.id,
+          title: item.product.fieldData.name,
+          desc: item.product.fieldData.description,
+          sizes: item.product.fieldData.sizelist,
+          image: item.product.fieldData.printimage.url,
+          tPrice: 15,  
+          sPrice: 20,  
+          mPrice: 25,  
+          lPrice: 35   
         }));
 
         setProducts(formattedProducts);
