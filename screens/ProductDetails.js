@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {View, Text, StyleSheet, Image, TouchableOpacity} from "react-native";
+import {ScrollView, View, Text, StyleSheet, Image, TouchableOpacity} from "react-native";
 
 const ProductDetails = ( {route} ) => {
     const {title, desc, image, tPrice, sPrice, mPrice, lPrice} = route.params;
@@ -25,6 +25,10 @@ const ProductDetails = ( {route} ) => {
         <Image source={image} style={styles.image}/>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.desc}>{desc}</Text>
+
+        <View> 
+            <Text style={styles.title}>Total Price: €{tinyQuantity*tPrice + smallQuantity*sPrice + mediumQuantity*mPrice + largeQuantity*lPrice}</Text>
+        </View>
 
         <Text style={styles.title}>Tiny</Text>
         <View style={styles.quantityContainer}>
@@ -76,10 +80,6 @@ const ProductDetails = ( {route} ) => {
             <TouchableOpacity style={styles.quantityButton} onPress={increaseLargeQuantity}>
                 <Text style={styles.quantityText}>+</Text>  
             </TouchableOpacity>
-        </View>
-
-        <View> 
-            <Text style={styles.title}>Total Price: €{tinyQuantity*tPrice + smallQuantity*sPrice + mediumQuantity*mPrice + largeQuantity*lPrice}</Text>
         </View>
     </View>
 );

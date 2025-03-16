@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import { ScrollView, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import ProductCard from "../components/ProductCard.js";
 import Print1 from "../images/print1.png";
 import Print2 from "../images/print2.png";
@@ -8,6 +9,35 @@ import Print4 from "../images/print4.png";
 import Print5 from "../images/print5.png";
 
 const HomeScreen = ( {navigation} ) => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetch("https://api.webflow.com/v2/sites/67b078a6cb9d879ac703a9ed/products", {
+        headers: {
+            Authorization: "Bearer a59179b4b660b71fbbfdd2d32510bc5a1db5157ee70d86a49a25cd265d25bae0"
+        }
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        // Group SKUs under the same product
+        const formattedProducts = data.items.map((item) => ({
+            id: item.product.id,
+            title: item.product.fieldData.name,
+            desc: item.product.fieldData.description,
+            sizes: item.product.fieldData.sizelist,
+            image: item.product.fieldData.printimage.url,
+            tPrice: item.product.variants[0].price,
+            sPrice: item.product.variants[1].price, 
+            mPrice: item.product.variants[2].price,
+            lPrice: item.product.variants[3].price
+        }));
+
+        setProducts(formattedProducts);
+    })
+    .catch((error) => console.error("Error:", error));
+}, []);
+
+
   return (
     <View style={styles.container}>
       <View style={styles.header}> 
@@ -15,6 +45,22 @@ const HomeScreen = ( {navigation} ) => {
       </View>
 
       <ScrollView width="100%" display="flex" alignItems="center">
+      {products.map((product) => (
+        <ProductCard 
+            key={product.id}
+            title={product.title} 
+            sizes={product.sizes}
+            desc={product.desc} 
+            image={product.image}
+            tPrice={product.tPrice} 
+            sPrice={product.sPrice} 
+            mPrice={product.mPrice}
+            lPrice={product.lPrice}
+            onPress={() => navigation.navigate("Details", product)} 
+        />
+        
+    ))}
+
         <ProductCard 
           title="Singing Girl - Concert" 
           desc = "15 x 15 - 20 x 20 - 30 x 30 - 40 x 40" 
@@ -25,16 +71,6 @@ const HomeScreen = ( {navigation} ) => {
             image: Print1,
             tPrice: 15, sPrice: 20, mPrice: 25, lPrice: 35})} 
         />
-        <ProductCard 
-          title="Dramatic Elegance - Queen" 
-          desc = "11 x 15 - 15 x 20 - 20 x 27 - 31 x 41" 
-          image = {Print2} 
-          onPress={()=> navigation.navigate("Details", 
-            {title: "Dramatic Elegance - Queen", 
-            desc: "11 x 15 - 15 x 20 - 20 x 27 - 31 x 41",
-            image: Print2,
-            tPrice: 10, sPrice: 15, mPrice: 20, lPrice: 30})} 
-          />
       </ScrollView>
       
       <StatusBar style="auto" />
