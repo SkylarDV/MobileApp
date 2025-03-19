@@ -25,7 +25,7 @@ const HomeScreen = ( {navigation} ) => {
           title: item.product.fieldData.name,
           desc: item.product.fieldData.description,
           sizes: item.product.fieldData.sizelist,
-          image: item.product.fieldData.printimage.url,
+          image: { uri: item.product.fieldData.printimage.url},
           tPrice: 15,  
           sPrice: 20,  
           mPrice: 25,  
@@ -45,32 +45,20 @@ const HomeScreen = ( {navigation} ) => {
       </View>
 
       <ScrollView width="100%" display="flex" alignItems="center">
-      {products.map((product) => (
-        <ProductCard 
-            key={product.id}
-            title={product.title} 
-            sizes={product.sizes}
-            desc={product.desc} 
-            image={product.image}
-            tPrice={product.tPrice} 
-            sPrice={product.sPrice} 
-            mPrice={product.mPrice}
-            lPrice={product.lPrice}
-            onPress={() => navigation.navigate("Details", product)} 
-        />
-        
-    ))}
-
-        <ProductCard 
-          title="Singing Girl - Concert" 
-          desc = "15 x 15 - 20 x 20 - 30 x 30 - 40 x 40" 
-          image = {Print1} 
-          onPress={()=> navigation.navigate("Details", 
-            {title: "Singing Girl - Concert", 
-            desc: "15 x 15 - 20 x 20 - 30 x 30 - 40 x 40",
-            image: Print1,
-            tPrice: 15, sPrice: 20, mPrice: 25, lPrice: 35})} 
-        />
+        {products.map((product) => (
+          <ProductCard 
+              key={product.id}
+              title={product.title} 
+              sizes={product.sizes}
+              desc={product.desc} 
+              image={product.image}
+              tPrice={product.tPrice} 
+              sPrice={product.sPrice} 
+              mPrice={product.mPrice}
+              lPrice={product.lPrice}
+              onPress={() => navigation.navigate("Details", product)} 
+          />    
+      ))}
       </ScrollView>
       
       <StatusBar style="auto" />
