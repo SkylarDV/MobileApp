@@ -26,10 +26,10 @@ const HomeScreen = ( {navigation} ) => {
           desc: item.product.fieldData.description,
           sizes: item.product.fieldData.sizelist,
           image: { uri: item.product.fieldData.printimage.url},
-          tPrice: 15,  
-          sPrice: 20,  
-          mPrice: 25,  
-          lPrice: 35   
+          tPrice: item.product.fieldData.tprice,  
+          sPrice: item.product.fieldData.sprice,  
+          mPrice: item.product.fieldData.mprice,  
+          lPrice: item.product.fieldData.lprice   
         }));
 
         setProducts(formattedProducts);
