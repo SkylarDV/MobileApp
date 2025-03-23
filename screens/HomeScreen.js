@@ -2,11 +2,6 @@ import { StatusBar } from 'expo-status-bar';
 import React, {useEffect, useState} from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import ProductCard from "../components/ProductCard.js";
-import Print1 from "../images/print1.png";
-import Print2 from "../images/print2.png";
-import Print3 from "../images/print3.png";
-import Print4 from "../images/print4.png";
-import Print5 from "../images/print5.png";
 
 const HomeScreen = ( {navigation} ) => {
   const [products, setProducts] = useState([]);
