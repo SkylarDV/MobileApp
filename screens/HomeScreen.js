@@ -8,6 +8,7 @@ const categoryTitles = {
   "": "All Categories",
   "67c616b73670aff67807ca3b": "Soft",
   "67c6130ecc646e14582ac96e": "Vibrant",
+  "680e59f414e9b0b83c6d151e": "Neutral",
 }
 
 const HomeScreen = ( {navigation} ) => {
