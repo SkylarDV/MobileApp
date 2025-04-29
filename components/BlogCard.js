@@ -1,0 +1,66 @@
+import React from "react";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+
+const BlogCard = ({ title, summary, image, onPress }) => {
+  return (
+    <View style={styles.card}>
+      {image && <Image source={{ uri: image }} style={styles.image} />}
+      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.summary}>{summary}</Text>
+      <TouchableOpacity style={styles.button} onPress={onPress}>
+        <Text style={styles.buttonText}>Read More</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  card: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    width: 300,
+    padding: 15,
+    backgroundColor: "#fff",
+    borderRadius: 30,
+    overflow: "hidden",
+    marginTop: 10,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 5,
+    elevation: 3,
+  },
+  image: {
+    width: "95%",
+    height: 200,
+    borderRadius: 20,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginTop: 10,
+    marginBottom: 5,
+    textAlign: 'center',
+  },
+  summary: {
+    fontSize: 15,
+    color: "#666",
+    textAlign: "center",
+  },
+  button: {
+    backgroundColor: '#a496e5',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginTop: 10,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+});
+
+export default BlogCard;

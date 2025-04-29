@@ -8,8 +8,8 @@ const ProductCard = ({ title, sizes, image, onPress }) => {
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.desc}>{sizes}</Text>
         <TouchableOpacity style={styles.button} 
-        onPress={onPress}>
-            <Text style={styles.text}>More Information</Text>
+          onPress={onPress}>
+          <Text style={styles.text}>More Information</Text>
         </TouchableOpacity>    
     </View>
   );
