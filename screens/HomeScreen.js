@@ -21,10 +21,10 @@ const HomeScreen = ({ navigation }) => {
             <Text style={styles.greeting}>Welcome, {username}!</Text>
             <Text style={styles.mainTitle}>Starlight</Text>
             <Text style={styles.subTitle}>Art Prints</Text>
-            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ProductList')}>
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('MainTabs', { screen: 'Prints' })}>
               <Text style={styles.buttonText}>Product List</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('BlogList')}>
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('MainTabs', { screen: 'Blogs' })}>
               <Text style={styles.buttonText}>Blog List</Text>
             </TouchableOpacity>
           </View>
