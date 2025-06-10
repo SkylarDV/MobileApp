@@ -19,9 +19,9 @@ const BlogList = ({ navigation }) => {
         const formattedBlogs = data.items.map((item) => ({
           id: item.id,
           title: item.fieldData.name,
-          image: item.fieldData["main-image"]?.url,
-          summary: item.fieldData["post-summary"],
-          body: item.fieldData["post-body"],
+          image: item.fieldData.blogimage.url,
+          summary: item.fieldData.summary,
+          body: item.fieldData.blogbody,
         }));
         setBlogs(formattedBlogs);
       })
@@ -50,6 +50,7 @@ const BlogList = ({ navigation }) => {
             key={blog.id}
             title={blog.title}
             summary={blog.summary}
+            body={blog.body}
             image={blog.image}
             onPress={() => navigation.navigate("BlogDetails", blog)}
           />
@@ -67,16 +68,24 @@ const styles = StyleSheet.create({
     backgroundColor: '#f7e9ff',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    paddingTop: 40,
   },
   header: {
-    width: '100%',
-    alignItems: 'center',
+    backgroundColor: "#fff",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    borderRadius: 30,
+    marginTop: 0,
     marginBottom: 10,
+    paddingTop: 50, // Safe area
+    paddingBottom: 10
   },
   title: {
     fontSize: 30,
     fontWeight: "bold",
+    marginTop: 0, // Remove marginTop here
+    marginBottom: 10,
   },
   search: {
     width: "80%",

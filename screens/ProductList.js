@@ -131,16 +131,20 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: "#fff",
-    display: "flex", 
+    display: "flex",
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
     borderRadius: 30,
+    marginTop: 0, // Remove marginTop so white reaches the top
+    marginBottom: 10,
+    paddingTop: 50, // Add paddingTop for safe area
   },
   title: {
     fontSize: 30,
     fontWeight: "bold",
-    marginTop: 30,
+    marginTop: 0, // Remove marginTop here
+    marginBottom: 10,
   },
   picker: {
     width: 150,

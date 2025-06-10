@@ -26,6 +26,11 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         overflow: "hidden",
         marginTop: 10,
+        shadowColor: 'rgba(34, 7, 52, 0.4)', // updated shadow color
+        shadowOpacity: 1, // set to 1 to use full rgba alpha
+        shadowOffset: { width: 0, height: 2 },
+        shadowRadius: 5,
+        elevation: 3,
     },
     image: {
         width: "95%",

@@ -1,14 +1,18 @@
-import {ScrollView, View, Text, StyleSheet, Image} from "react-native";
+import {ScrollView, View, Text, StyleSheet, Image, useWindowDimensions} from "react-native";
+import RenderHtml from 'react-native-render-html';
+
+
 
 const BlogDetails = ( {route} ) => {
-    const {title, desc, image} = route.params;
+    const {title, body, image} = route.params;
+    const { width } = useWindowDimensions();
 
   return (
     <View style={styles.page}>
-        <Image source={image} style={styles.image}/>
-        <ScrollView width="100%" position="absolute" top="340" height="25%" display="flex" alignItems="center"> 
+        <Image source={{uri:image}} style={styles.image}/>
+        <ScrollView width="100%" position="absolute" top="340" height="75%" display="flex" alignItems="center"> 
             <Text style={styles.title}>{title}</Text>
-            <Text style={styles.desc}>{desc}</Text>
+            <RenderHtml contentWidth={width} source={{ html: body }} />
         </ScrollView>
         
     </View>

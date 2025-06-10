@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 const BlogCard = ({ title, summary, image, onPress }) => {
   return (
     <View style={styles.card}>
-      {image && <Image source={{ uri: image }} style={styles.image} />}
+      <Image source={{ uri: image }} style={styles.image}/>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.summary}>{summary}</Text>
       <TouchableOpacity style={styles.button} onPress={onPress}>
@@ -25,8 +25,8 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     overflow: "hidden",
     marginTop: 10,
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
+    shadowColor: 'rgba(34, 7, 52, 0.4)', // updated shadow color
+    shadowOpacity: 1, // set to 1 to use full rgba alpha
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 5,
     elevation: 3,

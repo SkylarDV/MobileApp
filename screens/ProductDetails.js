@@ -1,5 +1,7 @@
 import { useState } from "react";
 import {ScrollView, View, Text, StyleSheet, Image, TouchableOpacity} from "react-native";
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 
 const ProductDetails = ( {route} ) => {
     const {title, sizes, desc, image, tPrice, sPrice, mPrice, lPrice} = route.params;
@@ -20,104 +22,114 @@ const ProductDetails = ( {route} ) => {
     const increaseLargeQuantity = () => {setLargeQuantity(largeQuantity + 1);}
     const decreaseLargeQuantity = () => { if(largeQuantity>=1) {setLargeQuantity(largeQuantity - 1);}};
 
+    const navigation = useNavigation();
+
   return (
     <View style={styles.page}>
-        <Image source={image} style={styles.image}/>
-        <ScrollView width="100%" position="absolute" top="340" height="25%" display="flex" alignItems="center"> 
-            <Text style={styles.title}>{title}</Text>
-            <Text style={styles.sizelist}>Available Sizes: {sizes}</Text>
-            <Text style={styles.desc}>{desc}</Text>
-        </ScrollView>
-        
+      <View style={styles.header}>
+        <TouchableOpacity
+          style={{ position: 'absolute', left: 20, top: 55, zIndex: 1 }} // Lowered the arrow
+          onPress={() => navigation.goBack()}
+        >
+          <Ionicons name="arrow-back" size={32} color="#666" /> {/* Softer gray */}
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}>   More About This Print</Text>
+      </View>
+      <Image source={image} style={styles.image}/>
+      <ScrollView style={{ width: "100%", maxHeight: 200 }} contentContainerStyle={{ alignItems: "center" }}>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.sizelist}>Available Sizes: {sizes}</Text>
+          <Text style={styles.desc}>{desc}</Text>
+      </ScrollView>
+      
 
-        <View style={styles.checkout}> 
-            <View style={styles.sizes}> 
-                <View style={styles.quantity}> 
-                    <Text style={styles.title}>Tiny</Text>
-                    <View style={styles.quantityContainer}>
-                        <TouchableOpacity style={styles.quantityButton} onPress={decreaseTinyQuantity}>
-                            <Text style={styles.quantityText}>-</Text>
-                        </TouchableOpacity>
+      <View style={styles.checkout}> 
+          <View style={styles.sizes}> 
+              <View style={styles.quantity}> 
+                  <Text style={styles.title}>Tiny</Text>
+                  <View style={styles.quantityContainer}>
+                      <TouchableOpacity style={styles.quantityButton} onPress={decreaseTinyQuantity}>
+                          <Text style={styles.quantityText}>-</Text>
+                      </TouchableOpacity>
 
-                        <Text style={styles.quantityText}>{tinyQuantity}</Text>
+                      <Text style={styles.quantityText}>{tinyQuantity}</Text>
 
-                        <TouchableOpacity style={styles.quantityButton} onPress={increaseTinyQuantity}>
-                            <Text style={styles.quantityText}>+</Text>  
-                        </TouchableOpacity>
-                    </View>                
-                    <Text style={styles.desc}>${tPrice}/piece</Text>
-                </View>
-                <View style={styles.quantity}> 
-                    <Text style={styles.title}>Small</Text>
-                    <View style={styles.quantityContainer}>
-                        <TouchableOpacity style={styles.quantityButton} onPress={decreaseSmallQuantity}>
-                            <Text style={styles.quantityText}>-</Text>
-                        </TouchableOpacity>
+                      <TouchableOpacity style={styles.quantityButton} onPress={increaseTinyQuantity}>
+                          <Text style={styles.quantityText}>+</Text>  
+                      </TouchableOpacity>
+                  </View>                
+                  <Text style={styles.desc}>${tPrice}/piece</Text>
+              </View>
+              <View style={styles.quantity}> 
+                  <Text style={styles.title}>Small</Text>
+                  <View style={styles.quantityContainer}>
+                      <TouchableOpacity style={styles.quantityButton} onPress={decreaseSmallQuantity}>
+                          <Text style={styles.quantityText}>-</Text>
+                      </TouchableOpacity>
 
-                        <Text style={styles.quantityText}>{smallQuantity}</Text>
+                      <Text style={styles.quantityText}>{smallQuantity}</Text>
 
-                        <TouchableOpacity style={styles.quantityButton} onPress={increaseSmallQuantity}>
-                            <Text style={styles.quantityText}>+</Text>  
-                        </TouchableOpacity>
-                    </View>                
-                    <Text style={styles.desc}>${sPrice}/piece</Text>
-                </View>
-                <View style={styles.quantity}> 
-                    <Text style={styles.title}>Medium</Text>
-                    <View style={styles.quantityContainer}>
-                        
-                        <TouchableOpacity style={styles.quantityButton} onPress={decreaseMediumQuantity}>
-                            <Text style={styles.quantityText}>-</Text>
-                        </TouchableOpacity>
+                      <TouchableOpacity style={styles.quantityButton} onPress={increaseSmallQuantity}>
+                          <Text style={styles.quantityText}>+</Text>  
+                      </TouchableOpacity>
+                  </View>                
+                  <Text style={styles.desc}>${sPrice}/piece</Text>
+              </View>
+              <View style={styles.quantity}> 
+                  <Text style={styles.title}>Medium</Text>
+                  <View style={styles.quantityContainer}>
+                      
+                      <TouchableOpacity style={styles.quantityButton} onPress={decreaseMediumQuantity}>
+                          <Text style={styles.quantityText}>-</Text>
+                      </TouchableOpacity>
 
-                        <Text style={styles.quantityText}>{mediumQuantity}</Text>
+                      <Text style={styles.quantityText}>{mediumQuantity}</Text>
 
-                        <TouchableOpacity style={styles.quantityButton} onPress={increaseMediumQuantity}>
-                            <Text style={styles.quantityText}>+</Text>  
-                        </TouchableOpacity>
-                    </View>
-                    <Text style={styles.desc}>${mPrice}/piece</Text>
-                </View>
-                <View style={styles.quantity}> 
-                    <Text style={styles.title}>Large</Text>
-                    <View style={styles.quantityContainer}>
-                        <TouchableOpacity style={styles.quantityButton} onPress={decreaseLargeQuantity}>
-                            <Text style={styles.quantityText}>-</Text>
-                        </TouchableOpacity>
+                      <TouchableOpacity style={styles.quantityButton} onPress={increaseMediumQuantity}>
+                          <Text style={styles.quantityText}>+</Text>  
+                      </TouchableOpacity>
+                  </View>
+                  <Text style={styles.desc}>${mPrice}/piece</Text>
+              </View>
+              <View style={styles.quantity}> 
+                  <Text style={styles.title}>Large</Text>
+                  <View style={styles.quantityContainer}>
+                      <TouchableOpacity style={styles.quantityButton} onPress={decreaseLargeQuantity}>
+                          <Text style={styles.quantityText}>-</Text>
+                      </TouchableOpacity>
 
-                        <Text style={styles.quantityText}>{largeQuantity}</Text>
+                      <Text style={styles.quantityText}>{largeQuantity}</Text>
 
-                        <TouchableOpacity style={styles.quantityButton} onPress={increaseLargeQuantity}>
-                            <Text style={styles.quantityText}>+</Text>  
-                        </TouchableOpacity>
-                    </View>
-                    <Text style={styles.desc}>${lPrice}/piece</Text>
-                </View>
-            </View>
-            <View> 
-                <Text style={styles.title}>Total Price: €{tinyQuantity*tPrice + smallQuantity*sPrice + mediumQuantity*mPrice + largeQuantity*lPrice}</Text>
-                <TouchableOpacity style={styles.button} onPress={() => {}}>
-                    <Text style={styles.text}>Add To Cart</Text>
-                </TouchableOpacity>
-            </View>
-            
-        </View>
-        
+                      <TouchableOpacity style={styles.quantityButton} onPress={increaseLargeQuantity}>
+                          <Text style={styles.quantityText}>+</Text>  
+                      </TouchableOpacity>
+                  </View>
+                  <Text style={styles.desc}>${lPrice}/piece</Text>
+              </View>
+          </View>
+          <View> 
+              <Text style={styles.title}>Total Price: €{tinyQuantity*tPrice + smallQuantity*sPrice + mediumQuantity*mPrice + largeQuantity*lPrice}</Text>
+              <TouchableOpacity style={styles.button} onPress={() => {}}>
+                  <Text style={styles.text}>Add To Cart</Text>
+              </TouchableOpacity>
+          </View>
+          
+      </View>
+      
     </View>
 );
 }
 
 const styles = StyleSheet.create({
     page: {
-        display: "flex",
+        flex: 1,
         flexDirection: "column",
         alignItems: "center",
         width: "100%",
-        height: "100%",
-        padding: 15,
-        backgroundColor: '#f7e9ff',
+        backgroundColor: '#f7e9ff', // keep purple
         overflow: "hidden",
-        paddingTop: 30,
+        padding: 0, // <-- Remove padding so header touches edges
+        // Remove paddingTop: 30,
     },
     image: {
         width: "95%",
@@ -133,6 +145,8 @@ const styles = StyleSheet.create({
     desc: {
         fontSize: 15,
         color: "#666",
+        marginHorizontal: 20, // Add horizontal margin for text
+        marginBottom: 10,     // Add bottom margin for spacing
     },
     button: {
         backgroundColor: '#a496e5',
@@ -162,13 +176,12 @@ const styles = StyleSheet.create({
         borderStyle: "solid",     
     },
     sizes: {
-        display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
-        width: "100%",
+        width: "100%", 
     },
     quantity: {
-        display: "flex",
+        flex: 1,
         flexDirection: "column",
         alignItems: "center",
     },
@@ -178,15 +191,31 @@ const styles = StyleSheet.create({
     },
     checkout: {
         display: "flex",
-        position: "absolute",
         alignItems: "center",
         justifyContent: "center",
-        width: "110%",
+        width: "100%",
         marginTop: 20,
-        bottom: 0,
         backgroundColor: "#fff",
         borderRadius: 30,
-        padding: 20,
+        padding: 10,
+    },
+    header: {
+      backgroundColor: "#fff",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      width: "100%",
+      borderRadius: 30,
+      marginTop: 0,
+      marginBottom: 10,
+      paddingTop: 50, // Safe area
+      paddingBottom: 10,
+    },
+    headerTitle: {
+      fontSize: 30,
+      fontWeight: "bold",
+      marginTop: 0,
+      marginBottom: 10,
     },
 })
 
