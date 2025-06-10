@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, TextInput, Image, ScrollView } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-
-const defaultProfilePic = 'https://ui-avatars.com/api/?name=User&background=a496e5&color=fff';
+import { useUser } from '../contexts/UserContext';
 
 const Profile = ({ navigation }) => {
-    const [username, setUsername] = useState('John Doe');
-    const [address, setAddress] = useState('123 Main St, City');
+    const { username, setUsername, address, setAddress, profilePic, setProfilePic } = useUser();
     const [editingUsername, setEditingUsername] = useState(false);
     const [editingAddress, setEditingAddress] = useState(false);
-    const [profilePic, setProfilePic] = useState(defaultProfilePic);
 
     const handleChangeProfilePic = async () => {
         const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -32,6 +29,9 @@ const Profile = ({ navigation }) => {
 
     return (
         <View style={styles.page}>
+            <View style={styles.header}>
+                <Text style={styles.headerTitle}>Your Profile</Text>
+            </View>
             <ScrollView contentContainerStyle={styles.scrollContent}>
                 <View style={styles.card}>
                     <TouchableOpacity onPress={handleChangeProfilePic} style={styles.picContainer}>
@@ -91,6 +91,24 @@ const styles = StyleSheet.create({
         backgroundColor: '#f7e9ff',
         alignItems: 'stretch', 
         justifyContent: 'center',
+    },
+    header: {
+        backgroundColor: "#fff",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
+        borderRadius: 30,
+        marginTop: 0,
+        marginBottom: 10,
+        paddingTop: 50,
+        paddingBottom: 10,
+    },
+    headerTitle: {
+        fontSize: 30,
+        fontWeight: "bold",
+        marginTop: 0,
+        marginBottom: 10,
     },
     scrollContent: {
         flexGrow: 1,

@@ -13,6 +13,7 @@ import BlogDetails from './screens/BlogDetails.js';
 import OrderHistory from './screens/OrderHistory.js'; 
 import { CartProvider } from './contexts/CartContext';
 import { OrderHistoryProvider } from './contexts/OrderHistoryContext';
+import { UserProvider } from './contexts/UserContext';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -63,17 +64,19 @@ function Tabs() {
 
 export default function App() {
   return (
-    <OrderHistoryProvider>
-      <CartProvider>
-        <NavigationContainer>
-          <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="MainTabs" component={Tabs} />
-            <Stack.Screen name="ProductDetails" component={ProductDetails} />
-            <Stack.Screen name="BlogDetails" component={BlogDetails} />
-            <Stack.Screen name="OrderHistory" component={OrderHistory} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </CartProvider>
-    </OrderHistoryProvider>
+    <UserProvider>
+      <OrderHistoryProvider>
+        <CartProvider>
+          <NavigationContainer>
+            <Stack.Navigator screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="MainTabs" component={Tabs} />
+              <Stack.Screen name="ProductDetails" component={ProductDetails} />
+              <Stack.Screen name="BlogDetails" component={BlogDetails} />
+              <Stack.Screen name="OrderHistory" component={OrderHistory} />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </CartProvider>
+      </OrderHistoryProvider>
+    </UserProvider>
   );
 }

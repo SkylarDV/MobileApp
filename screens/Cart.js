@@ -19,7 +19,6 @@ const Cart = ({ navigation }) => {
 
     const handleCheckout = () => {
         if (cart.length === 0) return;
-        // Flatten cart to [{name, size, price}]
         const orderItems = [];
         cart.forEach(item => {
             Object.entries(item.quantities).forEach(([size, qty]) => {
@@ -46,9 +45,11 @@ const Cart = ({ navigation }) => {
 
     return (
         <View style={styles.page}>
+            <View style={styles.header}>
+                <Text style={styles.headerTitle}>Cart</Text>
+            </View>
             <ScrollView contentContainerStyle={styles.scrollContent}>
                 <View style={styles.card}>
-                    <Text style={styles.title}>Cart</Text>
                     {cart.length === 0 ? (
                         <Text style={styles.message}>Your cart is currently empty.</Text>
                     ) : (
@@ -104,6 +105,24 @@ const styles = StyleSheet.create({
         backgroundColor: '#f7e9ff',
         alignItems: 'stretch',
         justifyContent: 'center',
+    },
+    header: {
+        backgroundColor: "#fff",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
+        borderRadius: 30,
+        marginTop: 0,
+        marginBottom: 10,
+        paddingTop: 50,
+        paddingBottom: 10,
+    },
+    headerTitle: {
+        fontSize: 30,
+        fontWeight: "bold",
+        marginTop: 0,
+        marginBottom: 10,
     },
     scrollContent: {
         flexGrow: 1,
