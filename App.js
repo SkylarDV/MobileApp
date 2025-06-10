@@ -10,6 +10,7 @@ import Profile from './screens/Profile.js';
 import Cart from './screens/Cart.js';
 import ProductDetails from './screens/ProductDetails.js'; // Import your details screen
 import BlogDetails from './screens/BlogDetails.js'; // Add this import
+import OrderHistory from './screens/OrderHistory.js'; // Add this import
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -65,6 +66,7 @@ export default function App() {
         <Stack.Screen name="MainTabs" component={Tabs} />
         <Stack.Screen name="ProductDetails" component={ProductDetails} />
         <Stack.Screen name="BlogDetails" component={BlogDetails} />
+        <Stack.Screen name="OrderHistory" component={OrderHistory} />
       </Stack.Navigator>
     </NavigationContainer>
   );
