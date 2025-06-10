@@ -25,7 +25,6 @@ const ProductList = ( {navigation} ) => {
     })
     .then((response) => response.json())
     .then((data) => {
-        // Group SKUs under the same product
         const formattedProducts = data.items.map((item) => ({
           id: item.product.id,
           title: item.product.fieldData.name,
@@ -136,14 +135,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     borderRadius: 30,
-    marginTop: 0, // Remove marginTop so white reaches the top
+    marginTop: 0, 
     marginBottom: 10,
-    paddingTop: 50, // Add paddingTop for safe area
+    paddingTop: 50, 
   },
   title: {
     fontSize: 30,
     fontWeight: "bold",
-    marginTop: 0, // Remove marginTop here
+    marginTop: 0,
     marginBottom: 10,
   },
   picker: {

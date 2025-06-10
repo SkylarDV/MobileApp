@@ -8,9 +8,11 @@ import ProductList from './screens/ProductList.js';
 import BlogList from './screens/BlogList.js';
 import Profile from './screens/Profile.js';
 import Cart from './screens/Cart.js';
-import ProductDetails from './screens/ProductDetails.js'; // Import your details screen
-import BlogDetails from './screens/BlogDetails.js'; // Add this import
-import OrderHistory from './screens/OrderHistory.js'; // Add this import
+import ProductDetails from './screens/ProductDetails.js'; 
+import BlogDetails from './screens/BlogDetails.js'; 
+import OrderHistory from './screens/OrderHistory.js'; 
+import { CartProvider } from './contexts/CartContext';
+import { OrderHistoryProvider } from './contexts/OrderHistoryContext';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -18,7 +20,7 @@ const Stack = createNativeStackNavigator();
 function Tabs() {
   return (
     <Tab.Navigator
-      initialRouteName="Home" // Add this line
+      initialRouteName="Home" 
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarStyle: {
@@ -61,13 +63,17 @@ function Tabs() {
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="MainTabs" component={Tabs} />
-        <Stack.Screen name="ProductDetails" component={ProductDetails} />
-        <Stack.Screen name="BlogDetails" component={BlogDetails} />
-        <Stack.Screen name="OrderHistory" component={OrderHistory} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <OrderHistoryProvider>
+      <CartProvider>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="MainTabs" component={Tabs} />
+            <Stack.Screen name="ProductDetails" component={ProductDetails} />
+            <Stack.Screen name="BlogDetails" component={BlogDetails} />
+            <Stack.Screen name="OrderHistory" component={OrderHistory} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </CartProvider>
+    </OrderHistoryProvider>
   );
 }

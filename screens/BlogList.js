@@ -78,13 +78,13 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     marginTop: 0,
     marginBottom: 10,
-    paddingTop: 50, // Safe area
+    paddingTop: 50, 
     paddingBottom: 10
   },
   title: {
     fontSize: 30,
     fontWeight: "bold",
-    marginTop: 0, // Remove marginTop here
+    marginTop: 0, 
     marginBottom: 10,
   },
   search: {

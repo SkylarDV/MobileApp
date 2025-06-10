@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
       
     borderRadius: 20,
     alignItems: 'center',
-    padding: 20,       // internal spacing
+    padding: 20,      
   },
   inner: {
     backgroundColor: 'rgba(255,255,255,0.5)',

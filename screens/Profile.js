@@ -12,14 +12,12 @@ const Profile = ({ navigation }) => {
     const [profilePic, setProfilePic] = useState(defaultProfilePic);
 
     const handleChangeProfilePic = async () => {
-        // Ask for permission
         const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (permissionResult.granted === false) {
             alert("Permission to access camera roll is required!");
             return;
         }
 
-        // Launch image picker
         let pickerResult = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,

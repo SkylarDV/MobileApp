@@ -1,7 +1,8 @@
 import { useState } from "react";
-import {ScrollView, View, Text, StyleSheet, Image, TouchableOpacity} from "react-native";
+import {ScrollView, View, Text, StyleSheet, Image, TouchableOpacity, Modal} from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
+import { useCart } from '../contexts/CartContext';
 
 const ProductDetails = ( {route} ) => {
     const {title, sizes, desc, image, tPrice, sPrice, mPrice, lPrice} = route.params;
@@ -23,15 +24,20 @@ const ProductDetails = ( {route} ) => {
     const decreaseLargeQuantity = () => { if(largeQuantity>=1) {setLargeQuantity(largeQuantity - 1);}};
 
     const navigation = useNavigation();
+    const { addToCart } = useCart();
+    const [addedMessage, setAddedMessage] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+
+    const totalQuantity = tinyQuantity + smallQuantity + mediumQuantity + largeQuantity;
 
   return (
     <View style={styles.page}>
       <View style={styles.header}>
         <TouchableOpacity
-          style={{ position: 'absolute', left: 20, top: 55, zIndex: 1 }} // Lowered the arrow
+          style={{ position: 'absolute', left: 20, top: 55, zIndex: 1 }} 
           onPress={() => navigation.goBack()}
         >
-          <Ionicons name="arrow-back" size={32} color="#666" /> {/* Softer gray */}
+          <Ionicons name="arrow-back" size={32} color="#666" /> 
         </TouchableOpacity>
         <Text style={styles.headerTitle}>   More About This Print</Text>
       </View>
@@ -109,13 +115,91 @@ const ProductDetails = ( {route} ) => {
           </View>
           <View> 
               <Text style={styles.title}>Total Price: €{tinyQuantity*tPrice + smallQuantity*sPrice + mediumQuantity*mPrice + largeQuantity*lPrice}</Text>
-              <TouchableOpacity style={styles.button} onPress={() => {}}>
-                  <Text style={styles.text}>Add To Cart</Text>
+              <TouchableOpacity
+                style={[
+                  styles.button,
+                  { backgroundColor: totalQuantity === 0 ? '#ccc' : '#a496e5' }
+                ]}
+                disabled={totalQuantity === 0}
+                onPress={() => {
+                  addToCart(
+                    { title, sizes, desc, image, tPrice, sPrice, mPrice, lPrice },
+                    {
+                      tiny: tinyQuantity,
+                      small: smallQuantity,
+                      medium: mediumQuantity,
+                      large: largeQuantity,
+                    }
+                  );
+                  setShowModal(true);
+                }}
+              >
+                <Text style={styles.text}>Add To Cart</Text>
               </TouchableOpacity>
+              {addedMessage && (
+                <Text style={{ color: '#4BB543', fontWeight: 'bold', marginTop: 8 }}>
+                  Added to cart!
+                </Text>
+              )}
           </View>
           
       </View>
-      
+      <Modal
+  visible={showModal}
+  transparent
+  animationType="fade"
+  onRequestClose={() => setShowModal(false)}
+>
+  <View style={{
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }}>
+    <View style={{
+      backgroundColor: '#fff',
+      borderRadius: 20,
+      padding: 30,
+      alignItems: 'center',
+      width: 300,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.2,
+      shadowRadius: 8,
+      elevation: 5,
+    }}>
+      <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#4BB543', marginBottom: 16 }}>Added to cart!</Text>
+      <View style={{ flexDirection: 'row', gap: 12 }}>
+        <TouchableOpacity
+          style={{
+            backgroundColor: '#a496e5',
+            paddingVertical: 10,
+            paddingHorizontal: 18,
+            borderRadius: 8,
+            marginRight: 8,
+          }}
+          onPress={() => {
+            setShowModal(false);
+            navigation.navigate('MainTabs', { screen: 'Cart' });
+          }}
+        >
+          <Text style={{ color: '#fff', fontWeight: 'bold' }}>Go to Cart</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            backgroundColor: '#eee',
+            paddingVertical: 10,
+            paddingHorizontal: 18,
+            borderRadius: 8,
+          }}
+          onPress={() => setShowModal(false)}
+        >
+          <Text style={{ color: '#a496e5', fontWeight: 'bold' }}>Keep Shopping</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  </View>
+</Modal>
     </View>
 );
 }
@@ -126,10 +210,9 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         alignItems: "center",
         width: "100%",
-        backgroundColor: '#f7e9ff', // keep purple
+        backgroundColor: '#f7e9ff', 
         overflow: "hidden",
-        padding: 0, // <-- Remove padding so header touches edges
-        // Remove paddingTop: 30,
+        padding: 0, 
     },
     image: {
         width: "95%",
@@ -145,8 +228,8 @@ const styles = StyleSheet.create({
     desc: {
         fontSize: 15,
         color: "#666",
-        marginHorizontal: 20, // Add horizontal margin for text
-        marginBottom: 10,     // Add bottom margin for spacing
+        marginHorizontal: 20,
+        marginBottom: 10,     
     },
     button: {
         backgroundColor: '#a496e5',
@@ -208,7 +291,7 @@ const styles = StyleSheet.create({
       borderRadius: 30,
       marginTop: 0,
       marginBottom: 10,
-      paddingTop: 50, // Safe area
+      paddingTop: 50, 
       paddingBottom: 10,
     },
     headerTitle: {
